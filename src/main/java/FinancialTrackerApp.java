@@ -29,10 +29,12 @@ public class FinancialTrackerApp {
     static void displayHomeScreen(){
         //while loop keeps program running until user exists
         while (true){
+            System.out.println("Welcome to BECU Online Banking");
             System.out.println("\n---Home---");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment");
             System.out.println("L) Ledger");
+            System.out.println("B) Balance");
             System.out.println("X) Exit");
 
             // initialize input to avoid case/spacing issues
@@ -48,6 +50,9 @@ public class FinancialTrackerApp {
                 case "L":
                     displayLedger();
                     break;
+                case "B":
+                    displayBalance();
+                    break;
                 case "X":
                     System.out.println("Exiting application. Goodbye!");
                     return; // exists program completely
@@ -55,6 +60,15 @@ public class FinancialTrackerApp {
                     System.out.println("Invalid choice. Please select D, P, L, or X.");
             }
         }
+    }
+
+    static void displayBalance(){
+        double balance = 0;
+        for (Transaction t : transactions){
+            balance += t.getAmount();
+        }
+        System.out.println("\nYour Current Balance: $" + String.format("%.2f", balance));
+        System.out.println("--------------------------------------");
     }
     //add deposit
     static void addDeposit(){
@@ -217,11 +231,10 @@ public class FinancialTrackerApp {
         //search by vendor
         static void searchByVendor() {
             System.out.print("Enter vendor name to search: ");
-            String vendorSearch = scanner.nextLine().toLowerCase();
+            String keyword = scanner.nextLine().toLowerCase();
 
             //loop through all transactions
             for (Transaction t : transactions) {
-                String keyword = scanner.nextLine().toLowerCase();
                 // case-insensitive
                 if (t.getVendor().toLowerCase().contains(keyword)) {
                     System.out.println(t);
