@@ -80,10 +80,13 @@ public class FinancialTrackerApp {
         String vendor = scanner.nextLine();
 
         System.out.print("Amount: ");
-        double amount = Double.parseDouble(scanner.next());
+        double amount = Double.parseDouble(scanner.nextLine());
 
         //deposits should always be positive
         saveTransaction(desc, vendor, Math.abs(amount));
+        System.out.println("\nDeposit recorded successfully. Thank you! young buck");
+        System.out.println("Press Enter to continue...");
+        scanner.nextLine();
     }
 
     //make payment
@@ -99,6 +102,9 @@ public class FinancialTrackerApp {
 
         //Payments should always be negative
         saveTransaction(desc,vendor, -Math.abs(amount));
+        System.out.println("\nPayment recorded successfully. Thank you! young buck");
+        System.out.println("Press Enter to continue...");
+        scanner.nextLine();
     }
 
     // Save transaction
@@ -114,7 +120,7 @@ public class FinancialTrackerApp {
 
         // Append to CSV file for persistence(true = append mode)
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("transactions.csv", true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/transactions.csv", true));
             bw.write(date + "|" + time + "|" + desc + "|" + vendor + "|" + amount);
             bw.newLine();
             bw.close();
@@ -125,7 +131,7 @@ public class FinancialTrackerApp {
 // Load transactions
     static void loadTransaction(){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("transactions.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("src/transactions.csv"));
 
             //skip header
             String line = br.readLine();
